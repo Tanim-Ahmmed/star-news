@@ -1,12 +1,13 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 
 
 const Login = () => {
 
     const {userLogin, setUser} = useContext(AuthContext);
-
+    const location = useLocation();
+    const navigate = useNavigate();
     const handleLogin = (e) =>{
         e.preventDefault();
         const form = e.target;
@@ -18,7 +19,7 @@ const Login = () => {
         .then((res)=>{
             const user = res.user;
             setUser(user);
-            console.log(user);
+            navigate(location?.state ? location.state : "/")
         })
         .catch((error) =>{
             alert(error.code);
@@ -27,8 +28,8 @@ const Login = () => {
   return (
     <div className= "min-h-screen flex justify-center items-center">
       <div className="hero bg-base-200 min-h-screen">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="text-center lg:text-left">
+        <div className="hero-content flex-col ">
+          <div className="text-center ">
             <h1 className="text-2xl font-bold">Login your account</h1>
           </div>
           <div className="card bg-base-100 w-full max-w-sm shrink-0 rounded-none">
